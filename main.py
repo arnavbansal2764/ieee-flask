@@ -28,5 +28,26 @@ def initial():
     output = {'text': text, 'images': images}
     return jsonify(output)
 
+@app.route('/message', methods=['POST'])
+def initial():
+    data = request.json
+    text = data.get('text')
+    image_text = data.get('image_text')
+    user_query = data.get('user_query')
+    messages = data.get('messages')
+    if not text:
+        return jsonify({'error': 'text is required'}), 400
+    if not image_text:
+        return jsonify({'error': 'image_text is required'}), 400
+    if not user_query:
+        return jsonify({'error': 'user_query is required'}), 400
+    if not messages:
+        return jsonify({'error': 'messages is required'}), 400
+   
+    message = get_stuff(text,image_text,user_query,messages)
+    
+    output = {'message':message}
+    return jsonify(output)
+
 if __name__ == '__main__':
     app.run(debug=True)

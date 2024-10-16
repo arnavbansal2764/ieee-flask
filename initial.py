@@ -65,6 +65,6 @@ def extract_text_from_pdf(pdf_path):
 def get_stuff(pdf_path):
     
     text = extract_text_from_pdf(pdf_path)
-    captions = "huehue"
+    captions = extract_images_from_pdf(pdf_path)
 
     return text, captions
