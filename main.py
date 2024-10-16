@@ -23,9 +23,9 @@ def initial():
     if not download_pdf(pdf_url, pdf_path):
         return jsonify({'error': 'Failed to download PDF'}), 500
    
-    (text,images )= get_stuff(pdf_path)
+    text, images = get_stuff(pdf_path)
     os.remove(pdf_path)
-    output = {text,images}
+    output = {'text': text, 'images': images}
     return jsonify(output)
 
 if __name__ == '__main__':
