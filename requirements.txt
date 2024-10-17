@@ -1,0 +1,10 @@
+Flask==2.0.3
+requests==2.26.0
+PyMuPDF==1.19.6
+pypdf==3.0.0
+torch==1.10.0
+Pillow==8.4.0
+transformers==4.12.3
+groq==0.1.0
+langchain==0.0.1
+langchain_community==0.0.1
