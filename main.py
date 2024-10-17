@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, json, request, jsonify, render_template
 import requests
 import os
 from initial import get_stuff
@@ -16,20 +16,22 @@ def download_pdf(url, save_path):
 def initial():
     data = request.json
     pdf_url = data.get('pdf_url')
+    print("req herehu")
     if not pdf_url:
         return jsonify({'error': 'PDF URL is required'}), 400
     pdf_path = 'downloaded_resume.pdf'
-    
+    print("req here")
     if not download_pdf(pdf_url, pdf_path):
         return jsonify({'error': 'Failed to download PDF'}), 500
    
-    text, images = get_stuff(pdf_path)
+    text, captions = get_stuff(pdf_path)
+   
     os.remove(pdf_path)
-    output = {'text': text, 'images': images}
+    output = {'text': text, 'images': captions}
     return jsonify(output)
 
 @app.route('/message', methods=['POST'])
-def initial():
+def message():
     data = request.json
     text = data.get('text')
     image_text = data.get('image_text')

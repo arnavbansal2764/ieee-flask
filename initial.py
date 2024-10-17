@@ -5,7 +5,7 @@ from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import io
 
-def generate_caption(image):
+def generate_caption(image, max_new_tokens=50):
     # Load the BLIP model and processor
     processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
     model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
@@ -15,7 +15,7 @@ def generate_caption(image):
 
     # Generate caption
     with torch.no_grad():
-        outputs = model.generate(**inputs)
+        outputs = model.generate(**inputs, max_new_tokens=max_new_tokens)
 
     # Decode the generated caption
     caption = processor.decode(outputs[0], skip_special_tokens=True)
@@ -65,6 +65,8 @@ def extract_text_from_pdf(pdf_path):
 def get_stuff(pdf_path):
     
     text = extract_text_from_pdf(pdf_path)
-    captions = extract_images_from_pdf(pdf_path)
-
+    captions_dict = extract_images_from_pdf(pdf_path)
+    captions =[]
+    for key,val in captions_dict.items():
+        captions.append(key+": "+val)
     return text, captions
