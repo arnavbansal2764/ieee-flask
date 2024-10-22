@@ -12,6 +12,10 @@ def download_pdf(url, save_path):
         return True
     return False
 
+@app.route('/', methods = ['GET'])
+def home():
+    return render_template('index.html')
+
 @app.route('/initial', methods=['POST'])
 def initial():
     data = request.json
